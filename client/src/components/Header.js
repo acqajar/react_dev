@@ -18,16 +18,14 @@ class Header extends Component {
         );
       default:
         // 'Logged in'
-        return (
-          <div>
-            <li>
-              <Payments />
-            </li>
-            <li>
-              <a href="/api/logout"> Logout</a>
-            </li>
-          </div>
-        );
+        return [
+          <li key="1">
+            <Payments />
+          </li>,
+          <li key="2">
+            <a href="/api/logout"> Logout</a>
+          </li>
+        ];
     }
   }
   render() {
