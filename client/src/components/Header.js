@@ -18,7 +18,7 @@ class Header extends Component {
         // 'Logged in'
         return (
           <li>
-            <a href="/"> Logout with Google</a>
+            <a href="/api/logout"> Logout with Google</a>
           </li>
         );
     }
