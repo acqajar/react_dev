@@ -25,7 +25,7 @@ require('./routes/billingRoutes')(app);
 if (process.env.NODE_ENV === 'production') {
   // express serve up prod files
   // if it doesnt exist, look in client/build directory for said file
-  app.use(express.static('./client/build'));
+  app.use(express.static('client/build'));
   // any route we dont understand after looking in the client/build, serve up index.html document
   const path = require('path');
   app.get('*', (req, res) => {
