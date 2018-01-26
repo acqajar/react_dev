@@ -1,3 +1,4 @@
+import 'materialize-css/dist/css/materialize.min.css'; // if no reltaive path, assumes node_module
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
