@@ -13,7 +13,8 @@ class Header extends Component {
         // logged out
         return (
           <li>
-            <a href="/auth/google"> Login with Google</a>
+            <Link to="/auth/google">Login with Google</Link>
+            // <a href="/auth/google"> Login with Google</a>
           </li>
         );
       default:
@@ -26,7 +27,8 @@ class Header extends Component {
             Credits: {this.props.auth.credits}
           </li>,
           <li key="2">
-            <a href="/api/logout"> Logout</a>
+            <Link to="/api/logout">OurOffice</Link>
+            // <a href="/api/logout"> Logout</a>
           </li>
         ];
     }

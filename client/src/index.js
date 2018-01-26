@@ -5,7 +5,7 @@ import './index.css';
 import App from './components/App';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-// import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 import reducers from './reducers';
 import reduxThunk from 'redux-thunk';
 
@@ -16,7 +16,7 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-// registerServiceWorker();
+registerServiceWorker();
 
 // console.log('Stripe key is ', process.env.REACT_APP_STRIPE_KEY);
 // console.log('Stripe key is ', process.env.NODE_ENV);
