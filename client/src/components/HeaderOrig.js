@@ -11,7 +11,7 @@ class Header extends Component {
       case false:
         return (
           <li>
-            <a href="/auth/google">Login With Google</a>
+            <a href="/auth/google">Login with Google</a>
           </li>
         );
       default:
@@ -33,21 +33,23 @@ class Header extends Component {
     return (
       <nav>
         <div className="nav-wrapper">
-          <Link
-            to={this.props.auth ? '/surveys' : '/'}
-            className="left brand-logo"
-          >
+          <Link to={this.props.auth ? '/surveys' : '/'} className="brand-logo">
             OurOffice
           </Link>
-          <ul className="right">{this.renderContent()}</ul>
+          <ul id="nav-mobile" className="right hide-on-med-and-down">
+            {this.renderContent()}
+          </ul>
         </div>
       </nav>
     );
   }
 }
 
-function mapStateToProps({ auth }) {
+// function mapStateProps(state) {
+//   return { auth: state.auth };
+// }
+function mapStateProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateProps)(Header);

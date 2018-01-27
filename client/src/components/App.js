@@ -11,9 +11,10 @@ const SurveyNew = () => <h2> SurveyNew </h2>;
 // const Landing = () => <h2> Landing </h2>;
 
 class App extends Component {
-  // componentDidMount() {
-  //   this.props.fetchUser();
-  // }
+  // recognizes whether or not user is logged in as app loads
+  componentDidMount() {
+    this.props.fetchUser();
+  }
   render() {
     return (
       <div className="container">
