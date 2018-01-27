@@ -4,6 +4,8 @@ const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
+const path = require('path');
+
 require('./models/User');
 require('./services/passport');
 mongoose.connect(keys.mongoUri);
@@ -27,7 +29,6 @@ if (process.env.NODE_ENV === 'production') {
   // if it doesnt exist, look in client/build directory for said file
   app.use(express.static('client/build'));
   // any route we dont understand after looking in the client/build, serve up index.html document
-  const path = require('path');
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
