@@ -18,12 +18,10 @@ module.exports = app => {
 
   app.get('/api/logout', (req, res) => {
     req.logout();
-    // res.send('user has been logged out -' + req.user);
     res.redirect('/');
   });
 
   app.get('/api/current_user', (req, res) => {
-    console.log('logged in - ' + req.user);
     res.send(req.user);
   });
 };
