@@ -2,7 +2,7 @@ const passport = require('passport');
 
 module.exports = app => {
   app.get(
-    '/auth/google1',
+    '/auth/google',
     passport.authenticate('google', {
       scope: ['profile', 'email']
     })
@@ -22,7 +22,6 @@ module.exports = app => {
   });
 
   app.get('/api/current_user', (req, res) => {
-    console.log('inside current user');
     res.send(req.user);
   });
 };
