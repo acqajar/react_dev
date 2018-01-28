@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 require('./models/User');
+require('./models/Survey');
 require('./services/passport');
 mongoose.connect(keys.mongoUri);
 const app = express();
