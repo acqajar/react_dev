@@ -48,10 +48,22 @@ class SurveyForm extends Component {
 
 function validate(values) {
   const errors = {};
+  // if (!values.title) {
+  //   errors.title = 'Must provide a title';
+  // }
+  // if (!values.subject) {
+  //   errors.subject = 'Must provide a subject';
+  // }
+  // if (!values.body) {
+  //   errors.body = 'Must provide a body';
+  // }
 
-  if (!values.title) {
-    errors.title = 'Must provide a title';
-  }
+  // could even customize error message by adding it to the FIELDS array of objects
+  _.each(FIELDS, ({ name }) => {
+    if (!values[name]) {
+      errors[name] = `Must provide a ${name}`;
+    }
+  });
   return errors;
 }
 
