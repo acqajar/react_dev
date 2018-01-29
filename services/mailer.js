@@ -23,6 +23,8 @@ class Mailer extends helper.Mail {
     });
   }
 
+  // All of this below is based off of Sendgrid api documentation
+
   addClickTracking() {
     const trackingSettings = new helper.TrackingSettings();
     const clickTracking = new helper.ClickTracking(true, true);
