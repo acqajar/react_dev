@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form'; // takes care of action creators, similar to connect helper
 import SurveyField from './SurveyField';
 import { Link } from 'react-router-dom';
+import validateEmails from '../../utils/validateEmails';
 
 const FIELDS = [
   { label: 'Survey Title', name: 'title' },
@@ -59,11 +60,14 @@ function validate(values) {
   // }
 
   // could even customize error message by adding it to the FIELDS array of objects
+  errors.emails = validateEmails(values.emails || '');
+
   _.each(FIELDS, ({ name }) => {
     if (!values[name]) {
       errors[name] = `Must provide a ${name}`;
     }
   });
+
   return errors;
 }
 
