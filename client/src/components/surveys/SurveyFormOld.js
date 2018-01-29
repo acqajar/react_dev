@@ -1,5 +1,4 @@
 // Shows form for user to add input
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form'; // takes care of action creators, similar to connect helper
 import SurveyField from './SurveyField';
@@ -13,17 +12,34 @@ const FIELDS = [
 
 class SurveyForm extends Component {
   renderFields() {
-    return _.map(FIELDS, ({ label, name }) => {
-      return (
+    return (
+      <div>
         <Field
-          key={name}
-          label={label}
+          label="Survey Title"
           type="text"
-          name={name}
+          name="title"
           component={SurveyField}
         />
-      );
-    });
+        <Field
+          label="Subject Line"
+          type="text"
+          name="subject"
+          component={SurveyField}
+        />
+        <Field
+          label="Email body"
+          type="text"
+          name="body"
+          component={SurveyField}
+        />
+        <Field
+          label="Recipient List"
+          type="text"
+          name="emails"
+          component={SurveyField}
+        />
+      </div>
+    );
   }
 
   render() {
