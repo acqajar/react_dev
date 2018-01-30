@@ -8,7 +8,7 @@ import validateEmails from '../../utils/validateEmails';
 
 const FIELDS = [
   { label: 'Survey Title', name: 'title' },
-  { label: 'Survey Line', name: 'subject' },
+  { label: 'Survey Subject', name: 'subject' },
   { label: 'Email body', name: 'body' },
   { label: 'Recipient List', name: 'emails' }
 ];
@@ -31,7 +31,7 @@ class SurveyForm extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+        <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
           {this.renderFields()}
           <Link to="/surveys" className="red btn-flat left white-text">
             Cancel
