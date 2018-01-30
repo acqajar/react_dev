@@ -54,7 +54,7 @@ function validate(values) {
   // }
 
   // could even customize error message by adding it to the formFields array of objects
-  errors.recipients = validateEmails(values.emails || '');
+  errors.recipients = validateEmails(values.recipients || '');
 
   _.each(formFields, ({ name }) => {
     if (!values[name]) {
