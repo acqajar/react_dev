@@ -5,17 +5,11 @@ import { reduxForm, Field } from 'redux-form'; // takes care of action creators,
 import SurveyField from './SurveyField';
 import { Link } from 'react-router-dom';
 import validateEmails from '../../utils/validateEmails';
-
-const FIELDS = [
-  { label: 'Survey Title', name: 'title' },
-  { label: 'Survey Subject', name: 'subject' },
-  { label: 'Email body', name: 'body' },
-  { label: 'Recipient List', name: 'emails' }
-];
+import formFields from './formFields';
 
 class SurveyForm extends Component {
   renderFields() {
-    return _.map(FIELDS, ({ label, name }) => {
+    return _.map(formFields, ({ label, name }) => {
       return (
         <Field
           key={name}
@@ -59,10 +53,10 @@ function validate(values) {
   //   errors.body = 'Must provide a body';
   // }
 
-  // could even customize error message by adding it to the FIELDS array of objects
+  // could even customize error message by adding it to the formFields array of objects
   errors.emails = validateEmails(values.emails || '');
 
-  _.each(FIELDS, ({ name }) => {
+  _.each(formFields, ({ name }) => {
     if (!values[name]) {
       errors[name] = `Must provide a ${name}`;
     }
@@ -75,5 +69,6 @@ export default reduxForm({
   // validate: validate, convert in es6 to below
   validate,
   // decide how you want form to behave
-  form: 'surveyForm'
+  form: 'surveyForm',
+  destroyOnUnmount: false
 })(SurveyForm);
