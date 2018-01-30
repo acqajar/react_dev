@@ -6,6 +6,11 @@ const Mailer = require('../services/mailer');
 const surveyTemplate = require('../services/emailTemplates/surveyTemplates');
 
 module.exports = app => {
+  app.post('/api/surveys/webhooks', (req, res) => {
+    console.log(req.body);
+    res.send({});
+  });
+
   app.get('/api/surveys/thanks', (req, res) => {
     res.send('Thanks for voting!');
   });
