@@ -10,24 +10,35 @@ const surveyTemplate = require('../services/emailTemplates/surveyTemplates');
 
 module.exports = app => {
   app.post('/api/surveys/webhooks', (req, res) => {
-    const events = _.map(req.body, ({ email, url }) => {
-      const pathname = new URL(url).pathname;
-      const p = new Path('/api/surveys/:surveyId/:choice');
-      const match = p.test(pathname);
-      // cant destructure match bc p.test() might return null
-      if (match) {
-        return {
-          email,
-          surveyId: match.surveyId,
-          choice: match.choice
-        };
-      }
-    });
+    const p = new Path('/api/surveys/:surveyId/:choice');
 
-    const compact = _.compact(events);
-    const uniqueEvents = _.uniqBy(compact, 'email', 'surveyId');
-
-    console.log(uniqueEvents);
+    _.chain(req.body)
+      .map(req.body, ({ email, url }) => {
+        const match = p.test(new URL(url).pathname);
+        // cant destructure match bc p.test() might return null
+        if (match) {
+          return {
+            email,
+            surveyId: match.surveyId,
+            choice: match.choice
+          };
+        }
+      })
+      .compact()
+      .uniqBy('email', 'surveyId')
+      .each(({ surveyId, email, choice }) => {
+        Survey.updateOne(
+          {
+            _id: surveyId,
+            recipients: { $elemMatch: { email: email, responded: false } }
+          },
+          {
+            $inc: { [choice]: 1 },
+            $set: { 'recipients.$.responded': true }
+          }
+        ).exec();
+      })
+      .value();
   });
 
   app.get('/api/surveys/:surveyId/:choice', (req, res) => {
