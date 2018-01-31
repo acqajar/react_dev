@@ -7,4 +7,4 @@ sleep 2
 done
 
 
-# "webhook": "lt -p 5000 -s l8a2oxzklqq",
+# "webhook": "lt -p 5000 -s l8a2oxzklqq", ./sendgrid_webhook.sh
