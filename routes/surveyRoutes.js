@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const _ = require('lodash');
+const Path = require('path-parser');
+const { URL } = require('url');
 const requireLogin = require('../middlewares/requireLogin');
 const requireCredits = require('../middlewares/requireCredits');
 const Survey = mongoose.model('surveys');
@@ -7,8 +10,24 @@ const surveyTemplate = require('../services/emailTemplates/surveyTemplates');
 
 module.exports = app => {
   app.post('/api/surveys/webhooks', (req, res) => {
-    console.log(req.body);
-    res.send({});
+    const events = _.map(req.body, ({ email, url }) => {
+      const pathname = new URL(url).pathname;
+      const p = new Path('/api/surveys/:surveyId/:choice');
+      const match = p.test(pathname);
+      // cant destructure match bc p.test() might return null
+      if (match) {
+        return {
+          email,
+          surveyId: match.surveyId,
+          choice: match.choice
+        };
+      }
+    });
+
+    const compact = _.compact(events);
+    const uniqueEvents = _.uniqBy(compact, 'email', 'surveyId');
+
+    console.log(uniqueEvents);
   });
 
   app.get('/api/surveys/:surveyId/:choice', (req, res) => {
