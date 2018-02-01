@@ -11,4 +11,4 @@ const recipientSchema = new Schema({
   no: { type: Number, default: 0 }
 });
 
-module.export = recipientSchema;
+module.exports = recipientSchema;

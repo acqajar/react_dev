@@ -35,8 +35,8 @@ module.exports = app => {
       .compact()
       .uniqBy('email', 'surveyId')
       .each(({ surveyId, email, choice }) => {
-        console.log('inside survey + ' + surveyId);
-        const c = Survey.updateOne(
+        console.log('inside survey + ' + choice);
+        Survey.updateOne(
           {
             _id: surveyId,
             recipients: {
@@ -48,9 +48,7 @@ module.exports = app => {
             $set: { 'recipients.$.responded': true },
             lastResponded: new Date()
           }
-        );
-        c.exec();
-        console.log('s - ' + c);
+        ).then(result => console.log(result));
       })
       .value();
 
@@ -64,7 +62,9 @@ module.exports = app => {
       title,
       subject,
       body,
-      recipients: recipients.split(',').map(email => ({ email: email.trim() })),
+      recipients: recipients
+        .split(',')
+        .map(email => ({ email: email.trim().toLowerCase() })),
       _user: req.user.id,
       dateSent: Date.now()
     });
@@ -75,9 +75,9 @@ module.exports = app => {
     try {
       await mailer.send();
       await survey.save();
-      req.user.credits -= 1;
+      req.user.credits += 10;
       const user = await req.user.save();
-
+      console.log('survey - ' + survey);
       res.send(user);
     } catch (err) {
       res.status(422).send(err);
