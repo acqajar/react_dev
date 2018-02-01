@@ -45,10 +45,13 @@ module.exports = app => {
           },
           {
             $inc: { [choice]: 1 },
-            $set: { 'recipients.$.responded': true },
+            $set: {
+              'recipients.$.responded': true,
+              'recipients.$.response': choice
+            },
             lastResponded: new Date()
           }
-        ).then(result => console.log(result));
+        ).exec();
       })
       .value();
 
@@ -75,7 +78,7 @@ module.exports = app => {
     try {
       await mailer.send();
       await survey.save();
-      req.user.credits += 10;
+      // req.user.credits += 10;
       const user = await req.user.save();
       console.log('survey - ' + survey);
       res.send(user);
