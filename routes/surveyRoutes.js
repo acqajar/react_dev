@@ -35,7 +35,8 @@ module.exports = app => {
       .compact()
       .uniqBy('email', 'surveyId')
       .each(({ surveyId, email, choice }) => {
-        Survey.updateOne(
+        console.log('inside survey + ' + surveyId);
+        const c = Survey.updateOne(
           {
             _id: surveyId,
             recipients: {
@@ -47,7 +48,9 @@ module.exports = app => {
             $set: { 'recipients.$.responded': true },
             lastResponded: new Date()
           }
-        ).exec();
+        );
+        c.exec();
+        console.log('s - ' + c);
       })
       .value();
 
